@@ -1,0 +1,8 @@
+# Local history and development assets outside the current addon release.
+/original/
+/previous_preview/
+/source-0.5.6-backup/
+/tools/
+/curseforge-icon-*.png
+/*.zip
+!/Cartographer_Forever-0.5.8.zip
