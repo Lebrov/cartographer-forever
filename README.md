@@ -1,114 +1,85 @@
-# Cartographer Forever 0.5.8
+# Cartographer Forever
 
-Адаптация Cartographer 2.5.3 для WoW Forever: **собственное окно карты** с дополнительными слоями рельефа, заданий и точек путешествия. Штатный `WorldMapFrame` для его отображения не используется. Видимой обводки нет; карта примыкает к верхней панели без пустой полосы, боковые отступы сохранены.
+![Cartographer Forever compass artwork](curseforge-icon-400.png)
 
-## Установка
+Cartographer Forever adapts [Cartographer 2.5.3](https://www.wowinterface.com/downloads/info6403-Cartographer.html) for **WoW Forever**. It opens a movable, resizable map window with detailed terrain, quest markers, dungeon maps, travel points, coordinates, and fog of war controls. The addon renders its own map with the client's modern `MapCanvas` and `C_Map` APIs instead of displaying the stock `WorldMapFrame`.
 
-Скопируйте `AddOns\Cartographer_Forever` в папку клиента:
+Designed for **WoW Forever 1.60.1** (Interface `16001`).
+
+## Features
+
+- **Seven independent map layers:** detailed terrain, quest markers, instance entrances, dungeon and raid maps, ships and zeppelins, flight points, and spirit healers. Settings persist between sessions. Detailed terrain starts off; the other layers start on.
+- **Dungeon and raid maps:** open them from the **Dungeons** menu or by left-clicking an entrance marker. Available floors are included. When you open the map inside a dungeon, its map appears automatically; **H** returns to your current dungeon map. Right-click a dungeon map to return to its outdoor zone.
+- **Zone information:** hover over a zone to see its recommended level range and available Forever dungeons. Cursor and player coordinates appear at the bottom left; player coordinates always refer to the character's current zone.
+- **Fog of war control:** unexplored areas are shown by default. Press **F** to show or hide fog in this window. This display setting never marks an area as explored for your character.
+- **Client map data:** detailed terrain uses minimap tiles already present in the game client, with building tiles for six capital cities. Quest markers come from the client and also respect its quest display settings.
+
+## Installation
+
+Download the [current addon package](Cartographer_Forever-0.5.8.zip) and extract it, or use the `AddOns\Cartographer_Forever` directory from this repository. Copy the extracted `Cartographer_Forever` directory into your WoW Forever installation:
 
 ```text
 C:\Program Files (x86)\World of Warcraft\_forever_\Interface\AddOns\
 ```
 
-В результате файл должен лежать здесь:
+The resulting file path should be:
 
 ```text
 ...\_forever_\Interface\AddOns\Cartographer_Forever\Cartographer_Forever.toc
 ```
 
-Скопируйте файлы с заменой старой версии, включите аддон в списке модификаций и перезапустите игру.
+Replace files from an older copy, enable the addon in the game's addon list, and restart the game. The bundled dungeon maps do not require Forever Instance Maps or DungeonJournal to be installed separately.
 
-## Управление
+## Controls
 
-- **M** — открыть или закрыть собственное окно карты. Если привязка клавиши карты изменена, аддон использует назначенную клавишу.
-- **Ctrl + колесо** над картой — размер окна. **Shift + колесо** — прозрачность. Обычное колесо увеличивает или уменьшает содержимое карты.
-- Перетащите окно за заголовок. Кнопки сверху: **<** — родительская карта, **H** — местоположение игрока, **F** — включить/выключить туман войны, **−/+** — изменить размер окна, **X** — закрыть.
-- **O** открывает семь независимых переключателей: детальный рельеф, метки заданий, входы в инстансы, карты подземелий и рейдов, дирижабли и корабли, точки полётов, целители душ. Выбор сохраняется между запусками. Детальный рельеф по умолчанию выключен; остальные функции включены.
-- Выпадающий список **«Подземелья ▾»** в верхней панели открывает карты подземелий. **ЛКМ по иконке портала** открывает карту инстанса; **ПКМ на карте инстанса** возвращает к карте исходной локации. Если персонаж находится внутри подземелья, открытие окна карты сразу показывает его карту; кнопка **H** также возвращает к карте текущего подземелья. Это относится ко всем подземельям стартового списка Forever, а не только к Тюрьме Штормграда.
-- Левый щелчок по карте открывает область, правый возвращает к родительской карте. **Esc** закрывает окно.
-- При наведении на локацию сверху выводятся её название и рекомендованные уровни в стиле Cartographer; ниже — доступные в Forever подземелья этой зоны. Слева внизу выводятся координаты курсора и игрока. Координаты игрока всегда относятся к его текущей зоне, даже если открыта карта другого материка.
-- Туман войны по умолчанию **выключен**: аддон дорисовывает неисследованные области в собственном окне. Кнопка **F** переключает режим. Это не отмечает области как исследованные у персонажа.
+| Input | Action |
+| --- | --- |
+| **M** or your assigned world map key | Open or close the Cartographer Forever window |
+| **O** | Open the seven map layer switches |
+| Mouse wheel over the map | Zoom the map |
+| **Ctrl + mouse wheel** | Resize the window |
+| **Shift + mouse wheel** | Change opacity |
+| Drag the title bar | Move the window |
+| Left-click / right-click on the map | Enter a zone / return to its parent map |
+| **H** / **F** | Return to your location / toggle fog of war |
+| **−** / **+** / **X** in the title bar | Resize the window / close it |
+| **Esc** | Close the window |
 
-Команды: `/cf` или `/cf map` открыть карту; `/cf size 0.60-1.25` задать масштаб окна; `/cf alpha 0.40-1` задать прозрачность; `/cf fog off` скрыть туман (`/cf fog on` — вернуть); `/cf reset` сбросить размер и положение; `/cf key off` вернуть штатную карту на клавишу M (`/cf key on` — снова использовать окно Cartographer Forever).
+The title bar also has a **<** button for the parent map and a **Dungeons** dropdown. On the first opening after login, the window expands to the largest size that fits on screen. Window resizing is limited by screen size.
 
-Каждый новый слой переключается командой `/cf detail|quests|entrances|instances|transport|flights|spirits on|off` (один параметр за раз, например `/cf flights off`).
+### Chat commands
 
-При первом открытии после входа в игру окно разворачивается до максимального масштаба, который помещается на экране. Кнопки **−/+** и **Ctrl + колесо** позволяют изменить размер на время текущего сеанса; максимальный масштаб ограничен размером экрана.
+`/cf` and `/cf map` toggle the map. `/cartographerforever` is an alias.
 
-## Что перенесено из оригинала
+| Command | Action |
+| --- | --- |
+| `/cf size 0.60-1.25` | Set window scale within that range |
+| `/cf alpha 0.40-1` | Set window opacity within that range |
+| `/cf fog off` / `/cf fog on` | Hide / show fog of war |
+| `/cf reset` | Reset window size, opacity, and position |
+| `/cf key off` / `/cf key on` | Restore the stock map key / let Cartographer Forever use it again |
+| `/cf detail|quests|entrances|instances|transport|flights|spirits on|off` | Enable or disable one layer, for example `/cf flights off` |
 
-Поведение масштабирования по Ctrl + колесу, изменения прозрачности по Shift + колесу, перетаскивания и сохранения положения адаптировано из `Cartographer_LookNFeel` для собственного окна. Файлы оригинального модуля в этот репозиторий не включены. Старые `WorldMapButton`, `WorldMapDetailFrame` и Rock/Ace2 в клиенте Forever не работают, поэтому сам рендер карты подключён к современному `MapCanvas` и `C_Map`.
+## Map data and limitations
 
-Соответствие основного поведения: `OnMouseWheel` оригинала → `HandleWindowWheel`; перемещение `WorldMapFrame:StartMoving()` → перетаскивание заголовка собственного окна; сохранённые `scale/alpha/x/y` → те же настройки в `CartographerForeverDB`. Старые тайлы `WorldMapDetailTile*` заменены слоями `MapCanvas`.
+The map window retains the familiar resize, opacity, drag, and saved-position behavior of `Cartographer_LookNFeel`. Its old files are not bundled. Cartographer's original `WorldMapButton`, `WorldMapDetailFrame`, and Rock/Ace2 map rendering do not work in the Forever client, so this adaptation uses `MapCanvas`. The old `WorldMapDetailTile*` textures are replaced by modern map layers. The zone label follows the style of `Cartographer_ZoneInfo` without bundling its 2009 level table.
 
-Внешний вид подписи следует `Cartographer_ZoneInfo`, но таблица 2009 года удалена. Для уровней зон аддон сначала читает рекомендуемый диапазон из Group Finder клиента Forever, сопоставляя запись с ID карты. Встроенная таблица для клиента `1.60.1.70938` служит резервом; она сверена с [перечнем диапазонов Group Finder](https://endgametools.com/en/wow-forever/news/wow-forever-leveling-zones). Для Shen'dralas, у которой пока нет записи Group Finder, ориентировочный диапазон помечен знаком `~`. Список подземелий и их уровни сверены с [Blizzard](https://worldofwarcraft.blizzard.com/en-us/news/24301455/explore-the-new-dungeons-of-world-of-warcraft-forever) и [Wowhead Forever](https://www.wowhead.com/forever/guide/dungeons-overview-locations-details); не открытые пока рейды не показываются.
+Recommended zone levels come first from Forever's Group Finder, matched to map IDs. A table for client build `1.60.1.70938` provides a fallback, checked against [EndgameTools' zone ranges](https://endgametools.com/en/wow-forever/news/wow-forever-leveling-zones). Shen'dralas has no Group Finder entry yet, so its approximate range is marked `~`. Dungeon names and level ranges were checked against [Blizzard](https://worldofwarcraft.blizzard.com/en-us/news/24301455/explore-the-new-dungeons-of-world-of-warcraft-forever) and [Wowhead Forever](https://www.wowhead.com/forever/guide/dungeons-overview-locations-details). Raids that are not yet open are not shown in the zone information.
 
-Неисследованные области рисуются по данным [Map Tab](https://github.com/jonlipin/map-tab) под MIT, лицензия приложена к `FogData.lua`. Данные охватывают 84 карты; в новых или изменённых картах за пределами базы открытие тумана может быть неполным.
+The fog data covers 84 maps. Unexplored areas on newer or changed maps outside that data may not reveal completely. When the client cannot provide a fog mask for detailed terrain, the addon uses the standard illustrated map so unexplored terrain is not exposed while fog is enabled.
 
-Модули оригинального Cartographer для заметок, сбора ресурсов, обмена позициями гильдии и добычи боссов сюда не перенесены. Предыдущая пробная сборка с заметками не входит в текущую публикацию.
+The current package includes 49 painted dungeon map textures in BLP2 DXT1 format with mipmaps. Original Cartographer modules for notes, gathering, guild position sharing, and boss loot are not part of this adaptation.
 
-## История изменений
+## Credits
 
-Разделы 0.5.0–0.5.7 описывают предыдущие выпуски. Свободная карта и рисование маршрутов, упомянутые в них, удалены в 0.5.7.
+- **Adaptation, integration, documentation, and cover artwork:** the Cartographer Forever project maintainer, with assistance from **OpenAI Codex (ChatGPT)**. The compass artwork above was generated for this project.
+- **Original design and controls:** [Cartographer](https://www.wowinterface.com/downloads/info6403-Cartographer.html) by ckknight and Arrowmaster.
+- **Detailed terrain and dungeon tile geometry:** [TerrainWorldMap](https://github.com/Dramacydal/TerrainWorldMap) by Dramacydal, under the MIT license included as [DetailMap-LICENSE.txt](AddOns/Cartographer_Forever/DetailMap-LICENSE.txt).
+- **Fog of war data:** [Map Tab](https://github.com/jonlipin/map-tab) by jonlipin, under the MIT license included in [FogData.lua](AddOns/Cartographer_Forever/FogData.lua).
+- **Painted dungeon maps:** sourced from [Forever Instance Maps](https://www.curseforge.com/wow/addons/forever-instance-maps) by R0yalFluffy and [DungeonJournal](https://www.curseforge.com/wow/addons/dungeonjournal) by ExehnTV (Exehn in the addon's metadata). Forever Instance Maps credits the new Forever dungeon illustrations to [Santiago Reyes, creator of *Atlas de Azeroth: Forever*](https://asguevara433.wixsite.com/srmaps/post/proyecto-atlas-de-azeroth-forever).
+- **Map locations and reference data:** [Leatrix Maps](https://www.curseforge.com/wow/addons/leatrix-maps), [EllesmereUI](https://www.curseforge.com/wow/addons/ellesmereui), [BetterMaps](https://www.curseforge.com/wow/addons/bettermaps), Blizzard, Wowhead Forever, [MMonster](https://mmonster.co/de/wow-forever/tools/world-map), and EndgameTools.
+- **Game artwork and live map and quest data:** Blizzard Entertainment. The bundled transport icon and Temple of Atal'Hakkar map come from game assets.
 
-### Новые возможности 0.5.0
+## Verification
 
-- **Детальная карта:** слой рельефа составляется из тайлов миникарты, уже находящихся в клиенте Forever; для шести столиц поверх рельефа добавлены тайлы зданий. Геометрия и идентификаторы тайлов адаптированы из [TerrainWorldMap](https://github.com/Dramacydal/TerrainWorldMap) по лицензии MIT, текст лицензии включён в архив. Если игрок включил туман войны, а клиент не даёт для карты маску тумана, используется штатная рисованная карта, чтобы не открывать неисследованные области.
-- **Метки заданий:** используются штатные поставщики данных клиента для активных и доступных заданий. Показ также зависит от клиентской настройки меток заданий; переключатель аддона может скрыть их независимо.
-- **Свободная карта (первый вариант):** у края увеличенная карта сдвигалась без щелчка. В версии 0.5.5 этот режим заменён общим холстом.
-- **Маршруты:** ручные ломаные линии сохраняются в `CartographerForeverDB.routes` по ID карты. Допустимо до 300 точек на одну карту.
-- **Входы и транспорт:** отдельные метки для подземелий, рейдов, полей боя, кораблей и дирижаблей. Известные координаты берутся из встроенной таблицы; при наличии клиентского API входов он дополняет её. Положение метки может обозначать подход к пещере, а не сам портал.
-- **Карты подземелий и рейдов:** рисованные карты и их этажи лежат внутри аддона; для остальных используются тайлы клиента. Алый монастырь и Забытый город разделены по крыльям. Карты открываются через меню **«Подземелья ▾»**, иконку входа или автоматически при открытии окна внутри подземелья. Карты рейдов открываются через иконки входов и внутри рейда. ПКМ возвращает на карту исходной локации. Рейды, которые ещё не открылись в Forever, помечены как будущие.
-
-### Изменения 0.5.1
-
-- Пять новых подземелий показывают семь изображений из установленного ForeverInstanceMaps 1.59, включая по два этажа Даларана и Затонувшего города. Изображения созданы Santiago Reyes (Atlas de Azeroth Forever). Для остальных новых подземелий сохраняется карта рельефа клиента.
-- Значки входов и транспорта видны поверх раскрытой карты; транспорт использует цветные значки клиента по фракции, а портал на поле боя окрашен красным. Вход Альянса в Альтеракскую долину перенесён на отметку 40.5, 80.5.
-- Свободная карта больше не переключала локации при наведении (поведение заменено в 0.5.5). При первом открытии после входа окно устанавливает максимальный масштаб, помещающийся на экране.
-
-### Изменения 0.5.2
-
-- В аддон скопированы 38 нарисованных карт из ForeverInstanceMaps и 10 карт из ForeverDungeonJournal. Теперь нарисованные карты доступны для всех девяти новых подземелий, включая Альказ, Крол'док, Черночелюстную крепость и Террасу Создателя. Другие аддоны для просмотра этих карт не требуются.
-- Четыре крыла Алого монастыря получили отдельные метки и изображения. Восточная, северная и западная части Забытого города открывают соответствующие этажи.
-- Добавлены 65 точек полётов и 89 точек целителей душ со своими переключателями. Корабли и дирижабли используют цветные значки глобуса, скопированные в сам аддон; для точек полётов и целителей используются значки клиента.
-
-### Изменения 0.5.3
-
-- Подземный поезд теперь помечен глобусом. Точки полётов используют штатные крылатые башмаки клиента с синим цветом Альянса, красным Орды и жёлтым нейтральных точек. Целители душ обозначены серебристо-синим надгробием.
-- Исправлено отображение значков порталов после смены текстуры; порталы полей боя получили фракционные значки. Координаты классических входов сверены с данными карт клиента. Для целителей душ предпочтение отдано координатам кладбищ из API клиента, а встроенная таблица остаётся запасным источником.
-- Главный и служебный входы Стратхольма открывают соответствующие этажи. Общий вход Пика Чёрной горы показывает карту LBRS/UBRS. Меню подземелий выводится поверх карты подземелья.
-- Изображения карт и файлы значков не изменялись.
-
-### Изменения 0.5.4
-
-- Четыре входа Алого монастыря расположены компактно по схеме вестибюля: Кладбище и Библиотека снизу, Собор и Оружейная сверху.
-- Значки целителей душ уменьшены вдвое. Их цвет показывает принадлежность кладбища: синий — Альянс, красный — Орда, жёлтый — нейтральная точка или точка без подтверждённой принадлежности.
-- Подпись меню подземелий использует читаемый знак раскрытия; стрелки перелистывания и номер страницы разнесены. В режиме рисования Shift + правый щелчок удаляет маршруты со всех карт.
-- Карта Храма Атал’Хаккара скопирована из установленного ForeverDungeonJournal в собственные файлы аддона. Для её отображения Dungeon Journal не требуется. Остальные изображения не изменялись.
-
-### Изменения 0.5.5
-
-- Маршруты рисуются поверх штатной рисованной карты и её раскрытых областей. На свободной карте также показываются сохранённые маршруты отдельных зон; новые точки в этом режиме сохраняются в координатах общего холста.
-- Активные и доступные задания из дочерних зон отображаются на картах материков и мира. Аддон переносит координаты меток на родительскую карту, убирает дубли и сохраняет фильтры заданий клиента.
-- Свободный режим использует карту мира как общий холст: масштабирование к курсору, перетаскивание, видимые карты материков и зон с плавными краями, сохранение вида и временный переход к картам подземелий. Рисованные изображения берутся из клиента; в архив добавлена только маска краёв.
-
-### Изменения 0.5.6
-
-- Маршруты на свободной карте сохраняют толщину около 3 экранных пикселей и точки около 7 пикселей при любом приближении. Выключатель «Маршруты» скрывает их сразу. Маршруты зон показываются, когда зона занимает не менее 150 экранных пикселей в ширину; маршрут общего холста появляется от двукратного увеличения или при редактировании клавишей **R**.
-- Значки транспорта, порталов, полётов, целителей душ и активных заданий сохраняют экранный размер; на общем обзоре они меньше, чтобы не закрывать карту.
-- В свободном режиме работают рисованная карта и детальный рельеф: последний подгружает только видимые тайлы на близком масштабе. При включённом тумане детальный рельеф обрезается по исследованным областям, полученным от клиента. Рисованный вид использует карты материков и одну локальную зону в центре при достаточном приближении, не накладывая несколько полных прямоугольных карт зон и городов.
-
-### Изменения 0.5.7
-
-- За основу возвращена версия 0.5.4. Из неё удалены свободная карта и рисование маршрутов, включая кнопки, настройки и команды этих функций. Остальные возможности версии 0.5.4 сохранены.
-
-### Изменения 0.5.8
-
-- Все 49 рисованных карт подземелий переведены из TGA в BLP2 DXT1 (BC1) с mip-уровнями, как в Leatrix Maps. Исходное разрешение карт сохранено; текстуры дополнены по краям до размеров, совместимых с клиентом, а координаты показа обрезают добавленные области.
-- Карты в установленном аддоне занимают 39,20 МБ вместо 112,46 МБ. Архив выпуска занимает 19,76 МБ вместо 84,40 МБ у версии 0.5.7. В репозитории опубликованы готовые BLP; исходные TGA и локальные инструменты конвертации в него не входят.
-
-## Проверка
-
-Версия интерфейса `16001` соответствует установленному клиенту Forever `1.60.1.70938`. При подготовке выпуска проверены записи TOC, 49 карт BLP2 (формат, mip-уровни, размеры и SHA-256), исходные TGA и значок глобуса, ключи четырёх крыльев Алого монастыря и трёх крыльев Забытого города, два подхода к Пику Чёрной горы, 65 точек полёта и 88 запасных точек целителей душ. Архив 0.5.8 распакован и прошёл ту же проверку. Образцы карт просмотрены в исходном и сжатом виде. Проверка непосредственно в игре пока не выполнена.
-
-Оригинальный проект: [Cartographer на WoWInterface](https://www.wowinterface.com/downloads/info6403-Cartographer.html), авторы ckknight и Arrowmaster.
+The current build targets Forever client `1.60.1.70938` with Interface `16001`. The package was checked for TOC entries, 49 BLP2 map textures and their mipmaps, map keys, travel and spirit healer markers, and archive contents. Sample maps were visually compared before and after compression. Verification inside the game is still pending.
