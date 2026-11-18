@@ -1,0 +1,16 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/">
+    <Frame name="CartographerForeverMapFrame" inherits="MapCanvasFrameTemplate" mixin="CartographerForeverMapMixin" parent="UIParent" frameStrata="HIGH" hidden="true">
+        <Size x="1000" y="689"/>
+        <Frames>
+            <ScrollFrame parentKey="ScrollContainer" inherits="MapCanvasFrameScrollContainerTemplate"/>
+            <Frame parentKey="BorderFrame" setAllPoints="true"/>
+            <Frame parentKey="Header" enableMouse="true">
+                <Size x="0" y="21"/>
+                <Anchors>
+                    <Anchor point="TOPLEFT" x="2" y="-2"/>
+                    <Anchor point="TOPRIGHT" x="-2" y="-2"/>
+                </Anchors>
+            </Frame>
+        </Frames>
+    </Frame>
+</Ui>

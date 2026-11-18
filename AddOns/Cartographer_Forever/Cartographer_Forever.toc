@@ -1,0 +1,30 @@
+## Interface: 16001
+## Title: Cartographer Forever
+## Title-ruRU: Картограф Forever
+## Notes: Independent map with terrain, quests, instances, transport and fog controls for WoW Forever
+## Notes-ruRU: Отдельная карта с рельефом, заданиями, подземельями, транспортом и туманом войны
+## Author: Cartographer Forever adaptation
+## Version: 0.5.8
+## SavedVariables: CartographerForeverDB
+## RequiredDep: Blizzard_WorldMap
+## X-Category: Map
+## X-GameFlavor: forever
+
+ZoneInfoData.lua
+ForeverDungeonData.lua
+ZoneLevelRuntime.lua
+FogData.lua
+Fog.lua
+DetailMapData.lua
+DetailMap.lua
+QuestAndNavigation.lua
+TravelData.lua
+POIData.lua
+SpiritHealers.lua
+ForeverInstanceMapArt.lua
+InstanceArtData.lua
+InstanceArt.lua
+Travel.lua
+MapWindow.lua
+MapWindow.xml
+Core.lua
